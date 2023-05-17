@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="wrap">
+            <div class="workspace">
+                <div 
+                v-for="element, index in elementList"
+                :key="index"
+                class="element" 
+                @click="editingElement(index)"
+                :style=
+                "`
+                width: ${element.width}px;
+                height: ${element.height}px;
+                bottom: ${element.y}px;
+                left: ${element.x}px;
+                background: ${element.color}; 
+                `"
+                >{{element.text}}</div>
+            </div>
+            <div class="panel">
+                <button @click="addElement">Создать</button>
+                <form class="panel__form" v-show="isShowPanel" @submit.prevent="saveElement">
+                    <div class="input-wrap">
+                        <label>Ширина:</label>
+                        <input min="10" max="800" required type="number" ref="width">
+                    </div>
+                    <div class="input-wrap">
+                        <label>Высота:</label>
+                        <input min="10" max="700" required type="number" ref="height">
+                    </div>
+                    <div class="input-wrap">
+                        <label>Коорд. Х:</label>
+                        <input min="0" max="1200" required type="number" ref="x">
+                    </div>
+                    <div class="input-wrap">
+                        <label>Коорд. Y:</label>
+                        <input min="0" max="600" required type="number" ref="y">
+                    </div>
+                    <div class="input-wrap">
+                        <label>Цвет:</label>
+                        <input required type="text" ref="color">
+                    </div>
+                    <div class="input-wrap">
+                        <label>Текст:</label>
+                        <input type="text" ref="text">
+                    </div>
+                    <button type="submit">Сохранить</button>
+                    <button @click="removeElement" class="btn-del">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
